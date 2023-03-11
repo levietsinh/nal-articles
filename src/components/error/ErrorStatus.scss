@@ -1,0 +1,14 @@
+.error {
+  height: 100vh;
+  @include flex-center;
+  text-align: center;
+  &__message {
+    margin-top: 16px;
+    font-size: 20px;
+    font-weight: bold;
+  }
+  &__home {
+    text-decoration: underline;
+    cursor: pointer;
+  }
+}

@@ -1,0 +1,36 @@
+.article {
+  &__form {
+    &-field {
+      &.error {
+        border-color: $red_color;
+      }
+    }
+    &-label {
+      display: block;
+      font-weight: bold;
+    }
+    &-error {
+      color: $red_color;
+      font-size: 12px;
+    }
+    &-image {
+      img {
+        width: 80%;
+        height: 300px;
+        object-fit: contain;
+      }
+      margin-bottom: 12px;
+      text-align: center;
+    }
+  }
+  &__image-selector {
+    position: relative;
+    input[type="file"] {
+      opacity: 0;
+      position: absolute;
+      width: 100%;
+      top: 0;
+      left: 0;
+    }
+  }
+}
