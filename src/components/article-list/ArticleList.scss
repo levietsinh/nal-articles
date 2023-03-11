@@ -56,5 +56,13 @@
         width: 100%;
       }
     }
+    &__pagination {
+      li a.page-link {
+        font-size: 14px;
+        width: 28px;
+        height: 28px;
+        @include flex-center;
+      }
+    }
   }
 }

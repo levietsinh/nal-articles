@@ -2,6 +2,9 @@
   height: 100vh;
   @include flex-center;
   text-align: center;
+  img {
+    max-width: 80%;
+  }
   &__message {
     margin-top: 16px;
     font-size: 20px;

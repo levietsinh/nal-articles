@@ -38,7 +38,7 @@
                 </li>
               </ul>
             </div>
-            <div class="dropdown me-5 d-inline-block">
+            <div class="dropdown me-0 me-md-5 d-inline-block">
               <button
                 class="btn btn-secondary dropdown-toggle"
                 type="button"
@@ -129,9 +129,10 @@
                 <li class="page-item">
                   <a
                     class="page-link"
-                    :class="{ disabled: page === 1 }"
+                    :class="{ disabled: parameters.page === 1 }"
                     href="#"
                     aria-label="Previous"
+                    @click="handleChangePage(1)"
                   >
                     <span aria-hidden="true">&laquo;</span>
                   </a>
@@ -139,7 +140,7 @@
 
                 <li
                   class="page-item"
-                  :class="{ active: pageItem === page }"
+                  :class="{ active: pageItem === parameters.page }"
                   aria-current="page"
                   v-for="pageItem of totalPage"
                   :key="pageItem"
@@ -154,9 +155,10 @@
                 <li class="page-item">
                   <a
                     class="page-link"
-                    :class="{ disabled: page === totalPage }"
+                    :class="{ disabled: parameters.page === totalPage }"
                     href="#"
                     aria-label="Next"
+                    @click="handleChangePage(totalPage)"
                   >
                     <span aria-hidden="true">&raquo;</span>
                   </a>
@@ -195,9 +197,9 @@ export default {
     const articlesList = computed(() => store.state.articleList);
     const loading = computed(() => store.state.loadingArticles);
     const parameters = computed(() => store.state.parameters);
+    const totalArticles = computed(() => store.state.totalArticles);
 
     const router = useRouter();
-    const page = ref(1);
     const totalItems = ref(0);
     const totalPage = ref(0);
     const isEdit = ref(false);
@@ -229,7 +231,6 @@ export default {
     const handleChangePage = (page) => {
       store.commit("setParameters", { page });
       store.dispatch("fetchArticles");
-      page.value = page;
     };
 
     const handleGotoDetail = (id) => router.push(`/${id}`);
@@ -258,7 +259,7 @@ export default {
     };
 
     const handleSearch = () => {
-      store.commit("setParameters", { search: searchInput });
+      store.commit("setParameters", { search: searchInput, page: 1 });
       store.dispatch("fetchArticles");
     };
 
@@ -274,13 +275,12 @@ export default {
 
     watch(articlesList, (value) => {
       totalItems.value = value.length;
-      totalPage.value = Math.ceil(value.length / parameters.value.limit);
+      totalPage.value = Math.ceil(totalArticles.value / parameters.value.limit);
     });
 
     return {
       articlesList,
       loading,
-      page,
       totalPage,
       isEdit,
       editData,

@@ -13,6 +13,7 @@ const store = createStore({
         order: "asc",
         search: "",
       },
+      totalArticles: 100,
     };
   },
   mutations: {
